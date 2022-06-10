@@ -1,0 +1,4 @@
+include(CMakeDependentOption)
+include(GNUInstallDirs)
+
+add_clang_subdirectory(ApexReflectTool)
