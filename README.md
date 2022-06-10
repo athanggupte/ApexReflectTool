@@ -1,7 +1,7 @@
 # Apex-Reflect-Tool
 
 Automated reflection data generator for [Apex Game Engine](https://github.com/xdevapps/ApexGameEngine) based on clang LibTooling.
-The generated c++ files are intended to be used with Apex Game Engine's Reflection library.
+The generated C++ files are intended to be used with Apex Game Engine's Reflection library.
 
 * Currently tested only on windows, Visual Studio 19
 
@@ -11,7 +11,7 @@ First run the bootstrap script to download dependencies at the proper locations.
 ```
 python bootstrap.py
 ```
-This will download LLVM, Clang and fmt at ./llvm, ./clang and ./clang-tools-extra/ApexReflectTool/fmt-8.1.1 respectively.
+This will download LLVM, Clang and fmt at `./llvm`, `./clang` and `./clang-tools-extra/ApexReflectTool/fmt-8.1.1` respectively.
 
 To generate the Visual Studio projects, run the following commands -
 ```powershell
@@ -43,4 +43,4 @@ ApexReflectTool.exe path/to/header_file.h -- clang++ -xc++ -DAPEX_REFLECT_TOOL -
     - fmt-8.1.1/
     - ApexReflectTool files
 
-Output files are present in build/{Debug|Release}/bin/ApexReflectTool.exe
+Output files are present in `build/{Debug|Release}/bin/ApexReflectTool.exe`
