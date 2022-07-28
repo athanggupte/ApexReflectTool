@@ -30,11 +30,8 @@ namespace Reflect {
 #include "FunctionImpl.h"
 #include "ParamerInfoImpl.h"
 
-#ifndef NDEBUG
-#include <cstdio>
-#define LOG_DEBUG(fmt, ...) printf(fmt "\n", __VA_ARGS__)
-#else
-#define LOG_DEBUG()
+#ifndef LOG_DEBUG
+#define LOG_DEBUG(...)
 #endif
 
 // Includes from {file}
@@ -59,7 +56,7 @@ struct ClassImpl<{class}> : public _ClassImpl<{class}>, public detail::ClassStor
 
 	constexpr std::string_view FIELD = R"(
 		{{
-			auto& field = m_field_beg[{field_idx}]; // AddField();
+			auto& field = m_field_beg[{field_idx}];
 			field.m_Name = "{field}";
 			field.m_Type = GetType<{type}>();
 			field.m_Offset = offsetof({class}, {field});
@@ -88,7 +85,7 @@ R"(				detail::ParameterInfoImpl<{param_type}, {param_idx}, {param_default_type}
 )";
 
 	constexpr std::string_view CLASS_EPILOGUE = R"(
-		REGISTER_CLASS({class});
+		GetTypeRegistry().AddClass(static_cast<uint64_t>(HASH(STR({class}))), this);
 		LOG_DEBUG("[INIT] :: CLASS :: {class}");
 	}}
 }};
@@ -114,7 +111,7 @@ struct EnumImpl<{enum}> : public _EnumImpl<{enum}>
 	EnumImpl()
 	{{
 		m_NumValues = {count};
-		REGISTER_ENUM({enum});
+		GetTypeRegistry().AddEnum(static_cast<uint64_t>(HASH(STR({enum}))), this);
 		LOG_DEBUG("[INIT] :: ENUM :: {enum}");
 	}}
 
